@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 
 def main():
-    print("[ClickBank] Pipeline starting...")
+    print("[ClickBank] Running offer pipeline...")
     
     # Load environment variables
     load_dotenv()
@@ -16,16 +16,16 @@ def main():
     offers = load_top_clickbank_products("offer_samples/top_products.json")
     ranked = rank_by_potential(offers)
     
-    # Generate content for top 5 offers
-    content = generate_promos(ranked[:5])
+    # Generate promotional content
+    promos = generate_promos(ranked)
     
     # Export results
     os.makedirs("output", exist_ok=True)
-    export_csv(content, "output/offers.csv")
+    export_csv(promos, "output/promos.csv")
     
     # Send notification if enabled
     if os.getenv("SEND_ALERTS", "true").lower() == "true":
-        notify_core("✅ signalforge-clickbank exported top offers.")
+        notify_core(f"✅ Clickbank promos generated for {len(promos)} offers!")
 
 if __name__ == "__main__":
     main() 

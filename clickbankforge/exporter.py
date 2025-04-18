@@ -1,19 +1,30 @@
 import pandas as pd
+import csv
 from typing import List, Dict
 import os
 from notion_client import Client
 from dotenv import load_dotenv
 
-def export_csv(offers: List[Dict], output_path: str) -> None:
+def export_csv(offers: List[Dict], output_path: str = "output/promos.csv") -> None:
     """
-    Export offers to CSV file.
+    Export offers to CSV file with specific fields.
     
     Args:
         offers: List of offer dictionaries
         output_path: Path to save the CSV file
     """
-    df = pd.DataFrame(offers)
-    df.to_csv(output_path, index=False)
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    
+    # Define the fields we want to export
+    keys = ["title", "category", "commission", "gravity", "promo"]
+    
+    # Write to CSV
+    with open(output_path, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=keys)
+        writer.writeheader()
+        writer.writerows(offers)
+    
     print(f"Exported {len(offers)} offers to {output_path}")
 
 def export_notion(offers: List[Dict], database_id: str) -> None:
@@ -33,11 +44,10 @@ def export_notion(offers: List[Dict], database_id: str) -> None:
                 parent={"database_id": database_id},
                 properties={
                     "Title": {"title": [{"text": {"content": offer.get("title", "")}}]},
-                    "Description": {"rich_text": [{"text": {"content": offer.get("description", "")}}]},
+                    "Category": {"rich_text": [{"text": {"content": offer.get("category", "")}}]},
                     "Commission": {"number": float(offer.get("commission", 0))},
                     "Gravity": {"number": float(offer.get("gravity", 0))},
-                    "Potential Score": {"number": float(offer.get("potential_score", 0))},
-                    "Content": {"rich_text": [{"text": {"content": offer.get("generated_content", "")}}]}
+                    "Promo": {"rich_text": [{"text": {"content": offer.get("promo", "")}}]}
                 }
             )
         except Exception as e:
