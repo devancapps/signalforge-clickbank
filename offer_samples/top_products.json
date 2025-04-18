@@ -1,0 +1,37 @@
+[
+    {
+        "title": "The Ultimate Keto Cookbook",
+        "description": "Delicious keto recipes for weight loss and better health",
+        "commission": 75.0,
+        "gravity": 45.2,
+        "category": "Health & Fitness"
+    },
+    {
+        "title": "Forex Trading Mastery",
+        "description": "Learn professional forex trading strategies",
+        "commission": 60.0,
+        "gravity": 38.7,
+        "category": "Business & Finance"
+    },
+    {
+        "title": "Digital Marketing Blueprint",
+        "description": "Step-by-step guide to online business success",
+        "commission": 50.0,
+        "gravity": 42.1,
+        "category": "Business & Finance"
+    },
+    {
+        "title": "Meditation for Beginners",
+        "description": "Transform your life with daily meditation",
+        "commission": 70.0,
+        "gravity": 35.8,
+        "category": "Health & Fitness"
+    },
+    {
+        "title": "Affiliate Marketing Secrets",
+        "description": "Build a passive income with affiliate marketing",
+        "commission": 65.0,
+        "gravity": 40.3,
+        "category": "Business & Finance"
+    }
+] 
